@@ -1,0 +1,57 @@
+package tests;
+
+import java.io.File;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import pages.Covid19TrackerPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Covid19TrackerTest {
+    WebDriver driver;
+    Covid19TrackerPage covid19TrackerPage;
+
+    // Setup ChromeDriver with the appropriate download directory
+    @BeforeClass
+    public void setUp() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+        
+        // Set Chrome options to specify the download directory
+        ChromeOptions options = new ChromeOptions();
+        String downloadDir = "C:/path/to/download/directory"; // Change this to your download directory
+        options.addArguments("download.default_directory=" + downloadDir);
+
+        driver = new ChromeDriver(options);
+        covid19TrackerPage = new Covid19TrackerPage(driver);
+        driver.manage().window().maximize();
+        covid19TrackerPage.loadCovid19TrackerPage();
+        Thread.sleep(2000); // Initial wait for the page to load
+    }
+
+    // Test to verify page load
+    @Test
+    public void verifyCovid19TrackerPageLoadsSuccessfully() throws InterruptedException {
+        String expectedTitle = "InerG Test App";
+        String actualTitle = covid19TrackerPage.getPageTitle();
+        assert actualTitle.equals(expectedTitle);  // Changed to a simple assertion for page title check
+    }
+
+    // Test to verify hover and download image functionality (No assertion check)
+    @Test(dependsOnMethods = {"verifyCovid19TrackerPageLoadsSuccessfully"})
+    public void verifyHoverAndDownloadImage() throws InterruptedException {
+        covid19TrackerPage.hoverAndDownloadImage(); // Hover and click the download button
+        Thread.sleep(5000); // Wait for the image to download (you may need to adjust timing)
+
+        // No assertion, only downloading the image
+        System.out.println("Image download initiated...");
+    }
+
+    // Close the browser after the test
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
+    }
+}

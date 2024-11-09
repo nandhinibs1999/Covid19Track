@@ -1,0 +1,50 @@
+package pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
+
+public class Covid19TrackerPage extends BasePage {
+
+    // Constructor to initialize WebDriver and PageFactory, and call the parent constructor
+    public Covid19TrackerPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);  // Initialize page elements
+    }
+
+    // Method to load the COVID-19 Tracker page
+    public void loadCovid19TrackerPage() {
+        driver.get("https://inerg-test.web.app/");
+    }
+
+    // Method to get the page title
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    // Locate the 'select' element (dropdown) for states
+    @FindBy(xpath = "//select[@class='data-filter-input']")
+    WebElement stateDropdown;
+
+    // Locate the "Zoom In" button
+    @FindBy(xpath = "//button[@class='zoom-in-button']") // Adjust this locator to match the actual button's attributes
+    WebElement zoomInButton;
+
+    // Method to get the default selected option from the dropdown
+    public String getDefaultDropdownOption() {
+        Select select = new Select(stateDropdown);
+        return select.getFirstSelectedOption().getText();
+    }
+
+    // Use the inherited selectState method from BasePage to select a state
+    public void selectState(String state) {
+        selectState(stateDropdown, state);
+    }
+
+    // Method to click the "Zoom In" button
+    public void clickZoomInButton() {
+        zoomInButton.click();
+    }
+}

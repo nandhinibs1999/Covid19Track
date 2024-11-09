@@ -1,0 +1,77 @@
+package tests;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import pages.Covid19TrackerPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Covid19TrackerTest {
+    WebDriver driver;
+    Covid19TrackerPage covid19TrackerPage;
+
+    // Opening Chrome
+    @BeforeClass
+    public void setUp() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        covid19TrackerPage = new Covid19TrackerPage(driver);
+        driver.manage().window().maximize();
+        Thread.sleep(4000);
+    }
+
+    // Opening the Covid19TrackerPage
+    @Test
+    public void verifyCovid19TrackerPageLoadsSuccessfully() throws InterruptedException {
+        covid19TrackerPage.loadCovid19TrackerPage();
+        String expectedTitle = "InerG Test App";
+        String actualTitle = covid19TrackerPage.getPageTitle();
+        Assert.assertEquals(actualTitle, expectedTitle, "Page did not load successfully.");
+        Thread.sleep(4000);
+    }
+
+    // Verifying the default option is "Select a State"
+    @Test
+    public void verifyDefaultDropdownOption() throws InterruptedException {
+        covid19TrackerPage.loadCovid19TrackerPage();
+        String expectedOption = "Select a State";
+        String actualOption = covid19TrackerPage.getDefaultDropdownOption();
+        Assert.assertEquals(actualOption, expectedOption, "Default option in the dropdown is incorrect.");
+        Thread.sleep(4000);
+    }
+
+    // Verifying the Zoom In button functionality
+    @Test
+    public void verifyZoomInButtonClick() throws InterruptedException {
+        covid19TrackerPage.loadCovid19TrackerPage();
+        covid19TrackerPage.clickZoomInButton();
+        // Add any further assertions or verifications as needed
+        Thread.sleep(4000);
+    }
+
+    // Verifying the state selection after zooming in
+    @Test
+    public void verifyStateSelection() throws InterruptedException {
+        covid19TrackerPage.loadCovid19TrackerPage();
+        
+        // First, click the Zoom In button
+        covid19TrackerPage.clickZoomInButton();
+        Thread.sleep(2000);  // Optional wait to observe zoom effect, adjust as needed
+
+        // Then, select the desired state
+        String stateToSelect = "Tamil Nadu";
+        covid19TrackerPage.selectState(stateToSelect);
+
+        String selectedOption = covid19TrackerPage.getDefaultDropdownOption();
+        Assert.assertEquals(selectedOption, stateToSelect, "State was not selected correctly.");
+        Thread.sleep(4000);
+    }
+
+    /*@AfterClass
+    public void tearDown() {
+        driver.quit();
+    }*/
+}

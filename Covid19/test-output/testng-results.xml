@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="15" passed="15" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2024-11-09T16:42:37 IST" name="Default suite" finished-at="2024-11-09T16:43:30 IST" duration-ms="52890">
+    <groups>
+    </groups>
+    <test started-at="2024-11-09T16:42:37 IST" name="Default test" finished-at="2024-11-09T16:43:30 IST" duration-ms="52890">
+      <class name="tests.Covid19TrackerTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:42:37 IST" name="setUp" finished-at="2024-11-09T16:42:45 IST" duration-ms="7236" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="verifyCovid19TrackerPageLoadsSuccessfully()[pri:1, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:42:45 IST" name="verifyCovid19TrackerPageLoadsSuccessfully" finished-at="2024-11-09T16:42:45 IST" duration-ms="37" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyCovid19TrackerPageLoadsSuccessfully -->
+        <test-method signature="verifyZoomInButtonClick()[pri:2, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:42:45 IST" name="verifyZoomInButtonClick" finished-at="2024-11-09T16:42:47 IST" duration-ms="2137" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyZoomInButtonClick -->
+        <test-method signature="verifyZoomOutButtonClick()[pri:3, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:42:47 IST" name="verifyZoomOutButtonClick" finished-at="2024-11-09T16:42:49 IST" depends-on-methods="tests.Covid19TrackerTest.verifyZoomInButtonClick" duration-ms="2140" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyZoomOutButtonClick -->
+        <test-method signature="verifyDefaultDropdownOption()[pri:4, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:42:49 IST" name="verifyDefaultDropdownOption" finished-at="2024-11-09T16:42:49 IST" depends-on-methods="tests.Covid19TrackerTest.verifyZoomOutButtonClick" duration-ms="177" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyDefaultDropdownOption -->
+        <test-method signature="verifyStateSelection()[pri:5, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:42:49 IST" name="verifyStateSelection" finished-at="2024-11-09T16:42:50 IST" depends-on-methods="tests.Covid19TrackerTest.verifyZoomOutButtonClick" duration-ms="876" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyStateSelection -->
+        <test-method signature="verifyDisplayAllData()[pri:6, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:42:50 IST" name="verifyDisplayAllData" finished-at="2024-11-09T16:42:54 IST" depends-on-methods="tests.Covid19TrackerTest.verifyStateSelection" duration-ms="4208" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyDisplayAllData -->
+        <test-method signature="verifyHoverAndClickTargetElementTwice()[pri:7, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:42:54 IST" name="verifyHoverAndClickTargetElementTwice" finished-at="2024-11-09T16:42:58 IST" depends-on-methods="tests.Covid19TrackerTest.verifyStateSelection" duration-ms="3263" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyHoverAndClickTargetElementTwice -->
+        <test-method signature="verifydownloadpiechartimage()[pri:8, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:42:58 IST" name="verifydownloadpiechartimage" finished-at="2024-11-09T16:43:00 IST" depends-on-methods="tests.Covid19TrackerTest.verifyStateSelection" duration-ms="2236" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifydownloadpiechartimage -->
+        <test-method signature="verifyRedirectToAnotherPageAndSwitchBack()[pri:9, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:43:00 IST" name="verifyRedirectToAnotherPageAndSwitchBack" finished-at="2024-11-09T16:43:12 IST" depends-on-methods="tests.Covid19TrackerTest.verifyStateSelection" duration-ms="12158" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyRedirectToAnotherPageAndSwitchBack -->
+        <test-method signature="verifyHoverAndClickTargetElementTwice1()[pri:10, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:43:12 IST" name="verifyHoverAndClickTargetElementTwice1" finished-at="2024-11-09T16:43:15 IST" depends-on-methods="tests.Covid19TrackerTest.verifyStateSelection" duration-ms="3233" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyHoverAndClickTargetElementTwice1 -->
+        <test-method signature="verifytotalbtn()[pri:11, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:43:15 IST" name="verifytotalbtn" finished-at="2024-11-09T16:43:18 IST" depends-on-methods="tests.Covid19TrackerTest.verifyStateSelection" duration-ms="3249" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifytotalbtn -->
+        <test-method signature="verifyactivecasesbtn()[pri:12, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:43:19 IST" name="verifyactivecasesbtn" finished-at="2024-11-09T16:43:22 IST" depends-on-methods="tests.Covid19TrackerTest.verifyStateSelection" duration-ms="3246" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyactivecasesbtn -->
+        <test-method signature="verifyrecoveredbtn()[pri:13, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:43:22 IST" name="verifyrecoveredbtn" finished-at="2024-11-09T16:43:25 IST" depends-on-methods="tests.Covid19TrackerTest.verifyStateSelection" duration-ms="3235" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyrecoveredbtn -->
+        <test-method signature="verifydeathsbtn()[pri:14, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:43:25 IST" name="verifydeathsbtn" finished-at="2024-11-09T16:43:28 IST" depends-on-methods="tests.Covid19TrackerTest.verifyStateSelection" duration-ms="3242" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifydeathsbtn -->
+        <test-method signature="verifyScrollToBottom()[pri:15, instance:tests.Covid19TrackerTest@198b6731]" started-at="2024-11-09T16:43:28 IST" name="verifyScrollToBottom" finished-at="2024-11-09T16:43:30 IST" duration-ms="2027" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyScrollToBottom -->
+      </class> <!-- tests.Covid19TrackerTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

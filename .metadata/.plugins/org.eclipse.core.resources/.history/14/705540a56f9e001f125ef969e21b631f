@@ -1,0 +1,109 @@
+package tests;
+
+import java.io.File;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import pages.Covid19TrackerPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Covid19TrackerTest {
+    WebDriver driver;
+    Covid19TrackerPage covid19TrackerPage;
+
+    // Setup ChromeDriver
+    @BeforeClass
+    public void setUp() throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        covid19TrackerPage = new Covid19TrackerPage(driver);
+        driver.manage().window().maximize();
+        covid19TrackerPage.loadCovid19TrackerPage();
+        Thread.sleep(2000); // Initial wait for the page to load
+    }
+
+    // Test to verify page load
+    @Test
+    public void verifyCovid19TrackerPageLoadsSuccessfully() throws InterruptedException {
+        String expectedTitle = "InerG Test App";
+        String actualTitle = covid19TrackerPage.getPageTitle();
+        Assert.assertEquals(actualTitle, expectedTitle, "Page did not load successfully.");
+    }
+
+    // Test to verify the Zoom In button click
+    @Test
+    public void verifyZoomInButtonClick() throws InterruptedException {
+        covid19TrackerPage.clickZoomInButton();
+        Thread.sleep(2000); // Wait to observe zoom effect
+    }
+
+    // Test to verify the Zoom Out button click
+    @Test(dependsOnMethods = {"verifyZoomInButtonClick"})
+    public void verifyZoomOutButtonClick() throws InterruptedException {
+        covid19TrackerPage.clickZoomOutButton();
+        Thread.sleep(2000); // Wait to observe zoom effect
+    }
+
+    // Test to verify default dropdown option (depends on zoom actions)
+    @Test(dependsOnMethods = {"verifyZoomOutButtonClick"})
+    public void verifyDefaultDropdownOption() throws InterruptedException {
+        String expectedOption = "Select a State"; // Expecting the default option
+        String actualOption = covid19TrackerPage.getDefaultDropdownOption();
+        Assert.assertEquals(actualOption, expectedOption, "Default option in the dropdown is incorrect.");
+    }
+
+    // Test to verify state selection (depends on zoom actions)
+    @Test(dependsOnMethods = {"verifyZoomOutButtonClick"})
+    public void verifyStateSelection() throws InterruptedException {
+        String stateToSelect = "Tamil Nadu";
+        covid19TrackerPage.selectState(stateToSelect);
+
+        String selectedOption = covid19TrackerPage.getDefaultDropdownOption();
+        Assert.assertEquals(selectedOption, stateToSelect, "State was not selected correctly.");
+    }
+
+    // Display all data after selecting the state
+    @Test(dependsOnMethods = {"verifyStateSelection"})
+    public void verifyDisplayAllData() throws InterruptedException {
+        covid19TrackerPage.displayAllData(); // Display the data for the selected state
+        Thread.sleep(4000);
+    }
+
+    // Test to verify the Download PNG functionality
+    @Test
+    public void verifyImageDownload() throws InterruptedException {
+        // Locate and click on the "Download plot as a png" button
+        WebElement downloadButton = driver.findElement(By.xpath("(//div[@class='modebar-group']/a[@data-title='Download plot as a png'])[1]"));
+        downloadButton.click();
+
+        // Wait for a few seconds to allow the image to download
+        Thread.sleep(5000); // Adjust this time if the download takes longer
+
+        // Specify the download directory (make sure this matches your browser's default download path)
+        String downloadPath = System.getProperty("user.home") + "/Downloads/"; // Default download directory for most browsers
+
+        // Verify that the PNG file is downloaded (check for the latest PNG file)
+        File downloadDir = new File(downloadPath);
+        File[] downloadedFiles = downloadDir.listFiles((dir, name) -> name.endsWith(".png"));
+
+        Assert.assertTrue(downloadedFiles != null && downloadedFiles.length > 0, "No PNG file was downloaded.");
+
+        // Optionally, you can validate the name of the downloaded file or additional attributes if necessary.
+        File latestFile = downloadedFiles[downloadedFiles.length - 1]; // Get the last downloaded PNG file
+        System.out.println("Downloaded File: " + latestFile.getName());
+
+        // Assert that the file has a .png extension
+        Assert.assertTrue(latestFile.getName().endsWith(".png"), "The downloaded file is not a PNG.");
+    }
+
+    // Close the browser after the test
+    @AfterClass
+    public void tearDown() {
+        driver.quit();
+    }
+}

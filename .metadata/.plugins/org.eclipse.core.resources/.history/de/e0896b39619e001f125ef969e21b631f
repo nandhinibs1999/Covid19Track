@@ -1,0 +1,68 @@
+package tests;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import pages.Covid19TrackerPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Covid19TrackerTest {
+	WebDriver driver;
+	Covid19TrackerPage covid19TrackerPage;
+
+	// Opening Chrome
+	@BeforeClass
+	public void setUp() throws InterruptedException {
+		WebDriverManager.chromedriver().setup();
+		driver = new ChromeDriver();
+		covid19TrackerPage = new Covid19TrackerPage(driver);
+		driver.manage().window().maximize();
+		Thread.sleep(40000);
+	}
+
+	
+	// Opening the Covid19TrackerPage
+	@Test
+	public void verifyCovid19TrackerPageLoadsSuccessfully() {
+		covid19TrackerPage.loadCovid19TrackerPage();
+		String expectedTitle = "InerG Test App";
+		String actualTitle = covid19TrackerPage.getPageTitle();
+		Assert.assertEquals(actualTitle, expectedTitle, "Page did not load successfully.");
+	}
+
+	// Verifying the default option is "Select a State"
+	@Test
+	public void verifyDefaultDropdownOption() {
+		covid19TrackerPage.loadCovid19TrackerPage();
+		String expectedOption = "Select a State";
+		String actualOption = covid19TrackerPage.getDefaultDropdownOption();
+		Assert.assertEquals(actualOption, expectedOption, "Default option in the dropdown is incorrect.");
+	}
+
+	// Verifying the Zoom In button functionality
+	@Test
+	public void verifyZoomInButtonClick() {
+		covid19TrackerPage.loadCovid19TrackerPage();
+		covid19TrackerPage.clickZoomInButton();
+		// Add any further assertions or verifications as needed
+	}
+
+	// Verifying the state selection
+	@Test
+	public void verifyStateSelection() {
+		covid19TrackerPage.loadCovid19TrackerPage();
+		String stateToSelect = "Tamil Nadu";
+		covid19TrackerPage.selectState(stateToSelect);
+
+		String selectedOption = covid19TrackerPage.getDefaultDropdownOption();
+		Assert.assertEquals(selectedOption, stateToSelect, "State was not selected correctly.");
+	}
+
+	/*
+	 * 
+	 * @AfterClass public void tearDown() { driver.quit(); }
+	 */
+}

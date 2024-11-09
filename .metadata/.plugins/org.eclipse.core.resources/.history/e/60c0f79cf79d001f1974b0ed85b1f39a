@@ -1,0 +1,24 @@
+package pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
+public class Covid19TrackerPage {
+    WebDriver driver;
+
+    // Constructor
+    public Covid19TrackerPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    // Load the COVID-19 Tracker page
+    public void loadCovid19TrackerPage() {
+        driver.get("https://inerg-test.web.app/");
+    }
+
+    // Verify page title
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+}

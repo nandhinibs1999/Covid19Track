@@ -1,0 +1,35 @@
+package pages;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class Covid19TrackerPage {
+    WebDriver driver;
+
+    // Constructor
+    public Covid19TrackerPage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    // Method to load the COVID-19 Tracker page
+    public void loadCovid19TrackerPage() {
+        driver.get("https://inerg-test.web.app/");
+    }
+
+    // Method to verify if the page title is as expected
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    // Locate the "Select a State" dropdown
+    @FindBy(id = "stateDropdown")  // Replace with the actual ID or locator for the dropdown
+    WebElement stateDropdown;
+
+    // Method to get the default selected option in the dropdown
+    public String getDefaultDropdownOption() {
+        return stateDropdown.getText();
+    }
+}

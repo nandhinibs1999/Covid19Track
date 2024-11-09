@@ -1,0 +1,83 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
+
+public class Covid19TrackerPage extends BasePage {
+
+    // Constructor to initialize WebDriver and PageFactory, and call the parent constructor
+    public Covid19TrackerPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);  // Initialize page elements
+    }
+
+    // Method to load the COVID-19 Tracker page
+    public void loadCovid19TrackerPage() {
+        driver.get("https://inerg-test.web.app/");
+    }
+
+    // Method to get the page title
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+
+    // Locate the 'select' element (dropdown) for states
+    @FindBy(xpath = "//select[@class='data-filter-input']")
+    WebElement stateDropdown;
+
+    // Locate the "Zoom In" button
+    @FindBy(xpath = "//span[normalize-space()='+']")
+    WebElement zoomInButton;
+
+    // Locate the "Zoom Out" button
+    @FindBy(xpath = "//span[contains(text(),'−')]")
+    WebElement zoomOutButton;
+
+    // Method to click the "Zoom In" button
+    public void clickZoomInButton() {
+        zoomInButton.click();
+    }
+
+    // Method to click the "Zoom Out" button
+    public void clickZoomOutButton() {
+        zoomOutButton.click();
+    }
+
+    // Method to get the default selected option from the dropdown
+    public String getDefaultDropdownOption() {
+        Select select = new Select(stateDropdown);
+        return select.getFirstSelectedOption().getText();
+    }
+
+    // Method to select a state in the dropdown
+    public void selectState(String state) {
+        Select select = new Select(stateDropdown);
+        select.selectByVisibleText(state);
+    }
+
+    // Method to display all data after selecting the state
+    public void displayAllData() {
+        // Wait until the data elements are visible
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        List<WebElement> dataElements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='resultCard']/div[@class='display-data']/p/strong")));
+
+        // Check if the list is empty
+        if (dataElements.isEmpty()) {
+            System.out.println("No data elements found!");
+        } else {
+            // Loop through the data and print each item
+            for (int i = 0; i < dataElements.size(); i++) {
+                String dataText = dataElements.get(i).getText();
+                System.out.println("Data " + (i + 1) + ": " + dataText);  // Print the data with its index
+            }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+// Covid19TrackerTest.java
+package tests;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import pages.Covid19TrackerPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class Covid19TrackerTest {
+    WebDriver driver;
+    Covid19TrackerPage covid19TrackerPage;
+
+    @BeforeClass
+    public void setUp() {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        covid19TrackerPage = new Covid19TrackerPage(driver);
+    }
+
+    @Test
+    public void verifyCovid19TrackerPageLoadsSuccessfully() {
+        covid19TrackerPage.loadCovid19TrackerPage();
+        String expectedTitle = "InerG Test App";
+        String actualTitle = covid19TrackerPage.getPageTitle();
+        Assert.assertEquals(actualTitle, expectedTitle, "Page did not load successfully.");
+    }
+
+    @Test
+    public void verifyDefaultDropdownOption() {
+        covid19TrackerPage.loadCovid19TrackerPage();
+        String expectedOption = "Select a State";
+        String actualOption = covid19TrackerPage.getDefaultDropdownOption();
+        Assert.assertEquals(actualOption, expectedOption, "Default option in the dropdown is incorrect.");
+    }
+
+    @Test
+    public void verifyStateSelection() {
+        covid19TrackerPage.loadCovid19TrackerPage();
+        String stateToSelect = "Tamil Nadu";
+        covid19TrackerPage.selectState(stateToSelect);
+
+        String selectedOption = covid19TrackerPage.getDefaultDropdownOption();
+        Assert.assertEquals(selectedOption, stateToSelect, "State was not selected correctly.");
+    }
+
+    /*@AfterClass
+    public void tearDown() {
+        driver.quit();
+    }*/
+}
